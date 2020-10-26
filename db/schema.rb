@@ -567,11 +567,11 @@ ActiveRecord::Schema.define(version: 2020_10_23_124124) do
     t.index ["type", "body_id"], name: "index_person_add_requests_on_type_and_body_id"
   end
 
-  create_table "person_doublets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "person1_id", null: false
-    t.integer "person2_id", null: false
+  create_table "person_doublettes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "person_1_id", null: false
+    t.integer "person_2_id", null: false
     t.boolean "ignore", default: false, null: false
-    t.index ["person1_id", "person2_id"], name: "index_person_doublets_on_person1_id_and_person2_id", unique: true
+    t.index ["person_1_id", "person_2_id"], name: "index_person_doublettes_on_person_1_id_and_person_2_id", unique: true
   end
 
   create_table "phone_numbers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
