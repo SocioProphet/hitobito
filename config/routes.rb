@@ -92,6 +92,15 @@ Hitobito::Application.routes.draw do
 
       end
 
+      resources :person_duplicates, only: [:index] do
+        member do
+          get 'merge' => 'person_duplicates/merge#new', as: 'new_merge'
+          post 'merge' => 'person_duplicates/merge#create', as: 'merge'
+          get 'acknowledge' => 'tags/merge#new', as: 'new_acknowledge'
+          post 'acknowledge' => 'tags/merge#create', as: 'acknowledge'
+        end
+      end
+
       resource :tag_list, only: [:destroy, :create, :new] do
         get 'deletable' => 'tag_lists#deletable'
       end
