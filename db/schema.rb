@@ -519,10 +519,6 @@ ActiveRecord::Schema.define(version: 2020_10_23_124124) do
     t.string "household_key"
     t.string "event_feed_token"
     t.string "unlock_token"
-    t.string "title"
-    t.string "website"
-    t.string "correspondance_language", default: "de", null: false
-    t.string "civil_status", default: "single", null: false
     t.index ["authentication_token"], name: "index_people_on_authentication_token"
     t.index ["email"], name: "index_people_on_email", unique: true
     t.index ["event_feed_token"], name: "index_people_on_event_feed_token", unique: true
@@ -567,11 +563,14 @@ ActiveRecord::Schema.define(version: 2020_10_23_124124) do
     t.index ["type", "body_id"], name: "index_person_add_requests_on_type_and_body_id"
   end
 
-  create_table "person_doublettes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "person_duplicates", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "person_1_id", null: false
     t.integer "person_2_id", null: false
     t.boolean "ignore", default: false, null: false
-    t.index ["person_1_id", "person_2_id"], name: "index_person_doublettes_on_person_1_id_and_person_2_id", unique: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["person_1_id", "person_2_id"], name: "index_person_duplicates_on_person_1_id_and_person_2_id", unique: true
+    t.index ["person_2_id"], name: "fk_rails_f3df850de7"
   end
 
   create_table "phone_numbers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -719,4 +718,6 @@ ActiveRecord::Schema.define(version: 2020_10_23_124124) do
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_openid_requests", "oauth_access_grants", column: "access_grant_id", on_delete: :cascade
+  add_foreign_key "person_duplicates", "people", column: "person_1_id"
+  add_foreign_key "person_duplicates", "people", column: "person_2_id"
 end
