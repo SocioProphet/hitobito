@@ -11,7 +11,7 @@ class People::DuplicateChecker
       
       next if person == doublette || doublette_already_exists?(person, doublette)
 
-      Person::Doublette.create!(person_1: person, person_2: doublette)
+      PersonDuplicate.create!(person_1: person, person_2: doublette)
     end
   end
 
@@ -22,7 +22,7 @@ class People::DuplicateChecker
   end
 
   def doublette_already_exists?(person_1, person_2)
-    Person::Doublette.where(person_1: person_1, person_2: person_2)
-      .or(Person::Doublette.where(person_2: person_1, person_1: person_2)).any?
+    PersonDuplicate.where(person_1: person_1, person_2: person_2)
+      .or(PersonDuplicate.where(person_2: person_1, person_1: person_2)).any?
   end
 end
