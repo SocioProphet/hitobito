@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class People::ProbeDuplicate < RecurringJob
+class People::ProbeDuplicateJob < RecurringJob
   run_every 1.day
 
   def perform
