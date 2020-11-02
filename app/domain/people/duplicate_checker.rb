@@ -3,22 +3,22 @@
 class People::DuplicateChecker
   def check
     Person.find_each do |person|
-      doublette = person_doublette_finder.find({ first_name: person.first_name,
-                                               last_name: person.last_name,
-                                               company_name: person.company_name,
-                                               zip_code: person.zip_code,
-                                               birthday: person.birthday })
+      duplicate = person_duplicate_finder.find({ first_name: person.first_name,
+                                                 last_name: person.last_name,
+                                                 company_name: person.company_name,
+                                                 zip_code: person.zip_code,
+                                                 birthday: person.birthday })
       
-      next if person == doublette || doublette_already_exists?(person, doublette)
+      next if person == duplicate || doublette_already_exists?(person, duplicate)
 
-      PersonDuplicate.create!(person_1: person, person_2: doublette)
+      PersonDuplicate.create!(person_1: person, person_2: duplicate)
     end
   end
 
   private
 
-  def person_doublette_finder
-    @person_doublette_finder ||= Import::PersonDuplicateFinder.new
+  def person_duplicate_finder
+    @person_duplicate_finder ||= Import::PersonDuplicateFinder.new
   end
 
   def doublette_already_exists?(person_1, person_2)
