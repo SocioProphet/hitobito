@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito.
 
 module Import
-  class PersonDoubletteFinder
+  class PersonDuplicateFinder
     include Translatable
 
     # if multiple rows match the same existing person, always return the same object

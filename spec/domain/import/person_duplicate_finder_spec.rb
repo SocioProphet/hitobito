@@ -7,8 +7,8 @@
 
 require 'spec_helper'
 
-describe Import::PersonDoubletteFinder do
-  let(:finder) { Import::PersonDoubletteFinder.new }
+describe Import::PersonDuplicateFinder do
+  let(:finder) { Import::PersonDuplicateFinder.new }
   subject { finder.find(attrs) }
 
   let(:conditions) { finder.send(:duplicate_conditions, attrs)}

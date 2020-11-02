@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe People::DoubletteChecker do
+describe People::DuplicateChecker do
 
   let(:checker) { described_class.new }
   subject { checker.check }

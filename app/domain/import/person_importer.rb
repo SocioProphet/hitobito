@@ -44,7 +44,7 @@ module Import
     end
 
     def update_count
-      doublette_finder.doublette_count - request_people.size
+      duplicate_finder.doublette_count - request_people.size
     end
 
     private
@@ -66,7 +66,7 @@ module Import
     end
 
     def populate_person(attributes, index)
-      person = doublette_finder.find(attributes) || ::Person.new
+      person = duplicate_finder.find(attributes) || ::Person.new
       attributes.delete(:email) if illegal_email_update?(person)
 
       import_person = Import::Person.new(person, attributes, options)
@@ -108,8 +108,8 @@ module Import
         ::Person::AddRequest::Creator::Group.new(import_person.role, user_ability)
     end
 
-    def doublette_finder
-      @doublette_finder ||= PersonDoubletteFinder.new
+    def duplicate_finder
+      @duplicate_finder ||= PersonDuplicateFinder.new
     end
 
   end

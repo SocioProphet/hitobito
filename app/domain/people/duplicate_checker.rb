@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class People::DoubletteChecker
+class People::DuplicateChecker
   def check
     Person.find_each do |person|
       doublette = person_doublette_finder.find({ first_name: person.first_name,
@@ -18,7 +18,7 @@ class People::DoubletteChecker
   private
 
   def person_doublette_finder
-    @person_doublette_finder ||= Import::PersonDoubletteFinder.new
+    @person_doublette_finder ||= Import::PersonDuplicateFinder.new
   end
 
   def doublette_already_exists?(person_1, person_2)
